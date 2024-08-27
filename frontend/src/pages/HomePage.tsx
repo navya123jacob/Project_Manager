@@ -10,9 +10,9 @@ import { useUpdateUserMutation } from '../store/apiSlice';
 
 const HomePage: React.FC = () => {
   const userInfo = useSelector((state: RootState) => state.user.userInfo);
-  const [change,setChange]=useState(0)
+  const [change, setChange] = useState(0);
   const dispatch = useDispatch();
-  const [updateUser]=useUpdateUserMutation()
+  const [updateUser] = useUpdateUserMutation();
   const [editMode, setEditMode] = useState(false);
 
   const handleEdit = () => {
@@ -21,24 +21,31 @@ const HomePage: React.FC = () => {
 
   const handleSave = (updatedInfo: any) => {
     dispatch(setUserInfo(updatedInfo));
-    console.log(updatedInfo)
-     updateUser({_id:updatedInfo._id,email:updatedInfo.email,fname:updatedInfo.fname,lname:updatedInfo.lname,linkedin:updatedInfo.linkedin,git:updatedInfo.git,mobile:updatedInfo.mobile})
+    updateUser({
+      _id: updatedInfo._id,
+      email: updatedInfo.email,
+      fname: updatedInfo.fname,
+      lname: updatedInfo.lname,
+      linkedin: updatedInfo.linkedin,
+      git: updatedInfo.git,
+      mobile: updatedInfo.mobile
+    });
     setEditMode(false);
   };
 
   return (
-    <div className="background-container" style={{backgroundImage:'url(/leaves.jpg)'}}>
+    <div className="background-container" style={{ backgroundImage: 'url(/leaves.jpg)' }}>
       <Header />
       <div className="main-body">
         <nav aria-label="breadcrumb" className="main-breadcrumb">
           <ol className="breadcrumb">
             <li className="breadcrumb-item text-white">Home</li>
-            <li className="breadcrumb-item active" aria-current="page">Project Management</li>
+            <li className="breadcrumb-item active " aria-current="page">Project Management</li>
           </ol>
         </nav>
         <div className="row gutters-sm">
           <div className="col-md-4 mb-3">
-            <div className="card">
+            <div className="card card-profile"  >
               <div className="card-body">
                 <div className="d-flex flex-column align-items-center text-center">
                   <img
@@ -49,8 +56,7 @@ const HomePage: React.FC = () => {
                   />
                   <div className="mt-3">
                     <h4>{userInfo?.fname} {userInfo?.lname}</h4>
-                    
-                    <button onClick={handleEdit} className="btn btn-primary">
+                    <button onClick={handleEdit} className="btn submit-button" >
                       {editMode ? 'Cancel' : 'Edit Profile'}
                     </button>
                   </div>
@@ -58,53 +64,53 @@ const HomePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="card mt-3">
+            <div className="card card-profile mt-3">
               {editMode ? (
                 <UserInfoForm userInfo={userInfo} onSave={handleSave} />
               ) : (
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 className="mb-0">Website</h6>
-                    <span className="text-secondary">{userInfo?.git}</span>
+                    <h6 className="mb-0">Git HUb</h6>
+                    <span className="text-white">{userInfo?.git}</span>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 className="mb-0">LinkedIn</h6>
-                    <span className="text-secondary">{userInfo?.linkedin}</span>
+                    <span className="text-white">{userInfo?.linkedin}</span>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 className="mb-0">Mobile</h6>
-                    <span className="text-secondary">{userInfo?.mobile}</span>
+                    <span className="text-white">{userInfo?.mobile}</span>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 className="mb-0">Gender</h6>
-                    <span className="text-secondary">{userInfo?.gender}</span>
+                    <h6 className="mb-0 ">Gender</h6>
+                    <span className="text-secondary text-white">{userInfo?.gender}</span>
                   </li>
                 </ul>
               )}
             </div>
           </div>
-          
+
           <div className="col-md-8">
-            <div className="card mb-3">
+            <div className="card card-project mb-3">
               <div className="card-body">
-                <h2 className="text-center">Project Management</h2>
+                <h2 className="text-center " style={{color:'rgb(230,230,230)'}}>Project Management</h2>
                 <div className="row">
                   <div className="col-sm-12">
-                    <h2>Create a New Project</h2>
+                    <h2 style={{color:'rgb(230,230,230)'}}>Create a New Project</h2>
                     <CreateProjectForm setChange={setChange} />
                   </div>
                 </div>
                 <hr />
                 <div className="row">
                   <div className="col-sm-12">
-                    <h2>Your Projects</h2>
+                    <h2 style={{color:'rgb(230,230,230)'}}>Your Projects</h2>
                     <ProjectList change={change} />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>

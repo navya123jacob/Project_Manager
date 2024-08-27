@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 interface UserInfoFormProps {
   userInfo: any;
   onSave: (updatedInfo: any) => void;
@@ -7,6 +8,7 @@ interface UserInfoFormProps {
 
 const UserInfoForm: React.FC<UserInfoFormProps> = ({ userInfo, onSave }) => {
   const [formData, setFormData] = useState(userInfo);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -20,69 +22,84 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ userInfo, onSave }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>First Name</label>
-        <input
-          type="text"
-          className="form-control"
-          name="fname"
-          value={formData.fname}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>Last Name</label>
-        <input
-          type="text"
-          className="form-control"
-          name="lname"
-          value={formData.lname}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>GitHub</label>
-        <input
-          type="text"
-          className="form-control"
-          name="git"
-          value={formData.git}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>LinkedIn</label>
-        <input
-          type="text"
-          className="form-control"
-          name="linkedin"
-          value={formData.linkedin}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>Mobile</label>
-        <input
-          type="text"
-          className="form-control"
-          name="mobile"
-          value={formData.mobile}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>Gender</label>
-        <input
-          type="text"
-          className="form-control"
-          name="gender"
-          value={formData.gender}
-          onChange={handleChange}
-        />
-      </div>
-      <button type="submit" className="btn btn-success">Save</button>
-    </form>
+    <div className="user-info-form-container">
+      <h2 className="user-info-form-title">Edit User Information</h2>
+      <form onSubmit={handleSubmit} className="user-info-form">
+        <div className="user-info-form-group">
+          <label htmlFor="fname">First Name</label>
+          <input
+            type="text"
+            id="fname"
+            name="fname"
+            className="user-info-form-control"
+            value={formData.fname}
+            onChange={handleChange}
+            placeholder="Enter your first name"
+          />
+        </div>
+        <div className="user-info-form-group">
+          <label htmlFor="lname">Last Name</label>
+          <input
+            type="text"
+            id="lname"
+            name="lname"
+            className="user-info-form-control"
+            value={formData.lname}
+            onChange={handleChange}
+            placeholder="Enter your last name"
+          />
+        </div>
+        <div className="user-info-form-group">
+          <label htmlFor="git">GitHub</label>
+          <input
+            type="text"
+            id="git"
+            name="git"
+            className="user-info-form-control"
+            value={formData.git}
+            onChange={handleChange}
+            placeholder="Enter your GitHub username"
+          />
+        </div>
+        <div className="user-info-form-group">
+          <label htmlFor="linkedin">LinkedIn</label>
+          <input
+            type="text"
+            id="linkedin"
+            name="linkedin"
+            className="user-info-form-control"
+            value={formData.linkedin}
+            onChange={handleChange}
+            placeholder="Enter your LinkedIn profile URL"
+          />
+        </div>
+        <div className="user-info-form-group">
+          <label htmlFor="mobile">Mobile</label>
+          <input
+            type="text"
+            id="mobile"
+            name="mobile"
+            className="user-info-form-control"
+            value={formData.mobile}
+            onChange={handleChange}
+            placeholder="Enter your mobile number"
+          />
+        </div>
+        <div className="user-info-form-group">
+          <label htmlFor="gender">Gender</label>
+          <input
+            type="text"
+            id="gender"
+            name="gender"
+            className="user-info-form-control"
+            value={formData.gender}
+            onChange={handleChange}
+            placeholder="Enter your gender"
+          />
+        </div>
+        <button type="submit" className="user-info-form-btn">Save</button>
+      </form>
+    </div>
   );
 };
 

@@ -8,6 +8,7 @@ import {
   useDeleteTodoMutation
 } from '../store/apiSlice';
 
+
 const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data: project, error, isLoading, refetch } = useGetProjectQuery(id);
@@ -19,6 +20,9 @@ const ProjectDetail: React.FC = () => {
   const [newTodo, setNewTodo] = useState('');
   const [editingTitle, setEditingTitle] = useState(false);
   const [title, setTitle] = useState(project?.title || '');
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
   const handleTitleChange = async () => {
     if (title.trim() === '') return;
@@ -44,51 +48,85 @@ const ProjectDetail: React.FC = () => {
     refetch();
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading project details</div>;
+  if (isLoading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">Error loading project details</div>;
+
+  const totalPages = project?.todos ? Math.ceil(project.todos.length / itemsPerPage) : 1;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentTodos = project?.todos.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <div>
-      <h3>
-        {editingTitle ? (
-          <>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <button onClick={handleTitleChange}>Save</button>
-            <button onClick={() => setEditingTitle(false)}>Cancel</button>
-          </>
-        ) : (
-          <>
-            Project: {project?.title}
-            <button onClick={() => setEditingTitle(true)}>Edit Title</button>
-          </>
-        )}
-      </h3>
+    <div className="project-detail-container">
+      <div className="project-detail-content">
+        <h3>
+          {editingTitle ? (
+            <>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="title-input"
+              />
+              <button onClick={handleTitleChange} className="btn btn-save">Save</button>
+              <button onClick={() => setEditingTitle(false)} className="btn btn-cancel">Cancel</button>
+            </>
+          ) : (
+            <>
+              Project: {project?.title}
+              <button onClick={() => setEditingTitle(true)} className="btn btn-edit">Edit Title</button>
+            </>
+          )}
+        </h3>
 
-      <h4>Todos:</h4>
-      <ul>
-        {project?.todos.map((todo: any) => (
-          <li key={todo._id}>
-            {todo.description} - {todo.status === 'completed' ? 'Completed' : 'Incomplete'}
-            <button onClick={() => handleUpdateTodoStatus(todo._id, todo.status === 'completed' ? 'pending' : 'completed')}>
-              Mark as {todo.status === 'completed' ? 'Pending' : 'Completed'}
-            </button>
-            <button onClick={() => handleDeleteTodo(todo._id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+        <h4>Todos:</h4>
+        <ul className="todo-list">
+          {currentTodos?.map((todo: any) => (
+            <li key={todo._id} className="todo-item">
+              <div>
+                {todo.description} - {todo.status === 'completed' ? 'Completed' : 'Incomplete'}
+              </div>
+              <div className="todo-actions">
+                <button onClick={() => handleUpdateTodoStatus(todo._id, todo.status === 'completed' ? 'pending' : 'completed')}>
+                  Mark as {todo.status === 'completed' ? 'Pending' : 'Completed'}
+                </button>
+                <button onClick={() => handleDeleteTodo(todo._id)}>Delete</button>
+              </div>
+              <div className="todo-dates">
+                <span>Created: {new Date(todo.createdAt).toLocaleString()}</span>
+                <span>Updated: {new Date(todo.updatedAt).toLocaleString()}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-      <div>
-        <input
-          type="text"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-          placeholder="New todo"
-        />
-        <button onClick={handleAddTodo}>Add Todo</button>
+        <div className="pagination">
+          <button
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="pagination-button"
+          >
+            Previous
+          </button>
+          <span className="pagination-info">{`Page ${currentPage} of ${totalPages}`}</span>
+          <button
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className="pagination-button"
+          >
+            Next
+          </button>
+        </div>
+
+        <div className="todo-add">
+          <input
+            type="text"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+            placeholder="New todo"
+            className="todo-input"
+          />
+          <button onClick={handleAddTodo} className="btn btn-add-todo">Add Todo</button>
+        </div>
       </div>
     </div>
   );

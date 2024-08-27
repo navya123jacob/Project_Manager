@@ -48,7 +48,7 @@ export class ProjectController {
   async exportProjectAsGist(req: Request, res: Response): Promise<void> {
     try {
       const { projectId } = req.params;  
-      const githubToken = process.env.GITHUB_TOKEN || req.body.githubToken;  
+      const githubToken = process.env.GITHUB_TOKEN ;  
 
       if (!githubToken) {
         throw new Error('GitHub token is required');

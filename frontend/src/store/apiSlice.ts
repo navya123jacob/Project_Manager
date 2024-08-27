@@ -46,10 +46,10 @@ export const apiSlice = createApi({
       query: (projectId) => `/todos?projectId=${projectId}`,
     }),
     exportProjectAsGist: builder.mutation({
-   query: ({ projectId, githubToken }) => ({
+   query: ({ projectId }) => ({
      url: `/projects/export-gist/${projectId}`,
      method: 'POST',
-     body: { githubToken },
+     body: {},
    }),
  }),
 
