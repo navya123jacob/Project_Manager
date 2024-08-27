@@ -60,4 +60,19 @@ export class ProjectController {
       res.status(400).json({ error: (error as Error).message });
     }
   }
+  async updateProjectTitle(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const { title } = req.body;
+      const project = await this.projectUseCase.updateProjectTitle(id, title);
+      if (!project) {
+        res.status(404).json({ error: 'Project not found' });
+      } else {
+        res.status(200).json(project);
+      }
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  }
+  
 }

@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGetProjectsQuery } from '../store/apiSlice';
 import { Link } from 'react-router-dom';
 
-const ProjectList: React.FC = () => {
-  const { data: projects, isLoading, error } = useGetProjectsQuery({});
+interface ProjectListProps {
+  change: number;
+  
+}
 
+const ProjectList: React.FC<ProjectListProps> = ({ change }) => {
+  const { data: projects, isLoading, error,refetch } = useGetProjectsQuery({});
+ useEffect(()=>{
+  refetch()
+ },[change])
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p className="text-danger">Error loading projects</p>;
 

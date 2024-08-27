@@ -41,4 +41,17 @@ export class TodoController {
       next(error);
     }
   }
+  async deleteTodo(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const result = await this.todoUseCase.deleteTodoById(id);
+      if (result) {
+        res.status(200).json({ message: 'Todo deleted successfully' });
+      } else {
+        res.status(404).json({ message: 'Todo not found' });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }

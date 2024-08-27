@@ -11,4 +11,5 @@ AuthRoutes.post('/login', authController.login.bind(authController));
 
 AuthRoutes.put('/update-user', authController.updateUser.bind(authController));
 
+
 export default AuthRoutes;

@@ -41,19 +41,19 @@ export class AuthController {
       res.status(400).json({ error: (error as Error).message });
     }
   }
-  async updateUser(userId: string, data: Partial<IUser>): Promise<void> {
-    console.log(userId)
-    // const user = await UserModel.findById(userId);
-    // if (!user) {
-    //   throw new Error('User not found');
-    // }
+  async updateUser(req: Request, res: Response): Promise<void> {
+    let data=req.body
+    const user = await UserModel.findById(data._id);
+    if (!user) {
+      throw new Error('User not found');
+    }
 
-    // if (data.email && data.email !== user.email) {
-    //   throw new Error('Email cannot be changed');
-    // }
+    if (data.email && data.email !== user.email) {
+      throw new Error('Email cannot be changed');
+    }
    
-    // Object.assign(user, data);
-    // await user.save();
-    // return user.toObject();
+    Object.assign(user, data);
+    await user.save();
+    return user.toObject();
   }
 }

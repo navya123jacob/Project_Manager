@@ -25,4 +25,8 @@ export class TodoUseCase implements ITodoUseCase {
   async getTodosByProjectId(projectId: string): Promise<ITodo[]> {
     return await this.todoRepository.getTodosByProjectId(projectId);
   }
+  async deleteTodoById(todoId: string): Promise<boolean> {
+    const result = await this.todoRepository.deleteTodoById(todoId);
+    return result !== null;
+  }
 }

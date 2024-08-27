@@ -11,7 +11,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const userInfo = useSelector((state: RootState) => state.user.userInfo);
 
   if (!userInfo) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   return children;

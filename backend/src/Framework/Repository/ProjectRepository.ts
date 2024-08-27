@@ -19,8 +19,11 @@ export class ProjectRepository implements IProjectRepository {
   async updateProject(project: IProject): Promise<IProject | null> {
     return await ProjectModel.findByIdAndUpdate(project._id, project, { new: true });
   }
+  async updateProjectTitle(id: string, title: string): Promise<IProject | null> {
+    return await ProjectModel.findByIdAndUpdate(id, { title }, { new: true });
+  }
+  
 
-  // New method to add a todo to the project's todos array
   async addTodoToProject(projectId: string, todoId: string): Promise<void> {
     await ProjectModel.findByIdAndUpdate(
       projectId,

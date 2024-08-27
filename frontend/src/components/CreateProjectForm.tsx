@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useCreateProjectMutation } from '../store/apiSlice';
+interface CreateProjectFormProps {
+  setChange: React.Dispatch<React.SetStateAction<number>>;
+  
+}
 
-const CreateProjectForm: React.FC = () => {
+const CreateProjectForm: React.FC<CreateProjectFormProps> = ({setChange}) => {
   const [title, setTitle] = useState('');
   const [createProject, { isLoading, error }] = useCreateProjectMutation();
 
@@ -9,6 +13,7 @@ const CreateProjectForm: React.FC = () => {
     e.preventDefault();
     try {
       await createProject(title).unwrap();
+      setChange((prev)=>prev+1)
       setTitle('');
     } catch (err) {
       console.error('Failed to create project:', err);

@@ -10,6 +10,7 @@ import { useUpdateUserMutation } from '../store/apiSlice';
 
 const HomePage: React.FC = () => {
   const userInfo = useSelector((state: RootState) => state.user.userInfo);
+  const [change,setChange]=useState(0)
   const dispatch = useDispatch();
   const [updateUser]=useUpdateUserMutation()
   const [editMode, setEditMode] = useState(false);
@@ -20,7 +21,8 @@ const HomePage: React.FC = () => {
 
   const handleSave = (updatedInfo: any) => {
     dispatch(setUserInfo(updatedInfo));
-    updateUser(updatedInfo)
+    console.log(updatedInfo)
+     updateUser({_id:updatedInfo._id,email:updatedInfo.email,fname:updatedInfo.fname,lname:updatedInfo.lname,linkedin:updatedInfo.linkedin,git:updatedInfo.git,mobile:updatedInfo.mobile})
     setEditMode(false);
   };
 
@@ -47,8 +49,7 @@ const HomePage: React.FC = () => {
                   />
                   <div className="mt-3">
                     <h4>{userInfo?.fname} {userInfo?.lname}</h4>
-                    <p className="text-secondary mb-1">Full Stack Developer</p>
-                    <p className="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                    
                     <button onClick={handleEdit} className="btn btn-primary">
                       {editMode ? 'Cancel' : 'Edit Profile'}
                     </button>
@@ -90,14 +91,14 @@ const HomePage: React.FC = () => {
                 <div className="row">
                   <div className="col-sm-12">
                     <h2>Create a New Project</h2>
-                    <CreateProjectForm />
+                    <CreateProjectForm setChange={setChange} />
                   </div>
                 </div>
                 <hr />
                 <div className="row">
                   <div className="col-sm-12">
                     <h2>Your Projects</h2>
-                    <ProjectList />
+                    <ProjectList change={change} />
                   </div>
                 </div>
               </div>

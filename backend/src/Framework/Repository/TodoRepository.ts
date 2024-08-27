@@ -15,12 +15,6 @@ export class TodoRepository implements ITodoRepository {
     const todo = new TodoModel({ description, projectId });
     const savedTodo = await todo.save();
 
-    await ProjectModel.findByIdAndUpdate(
-      projectId,
-      { $push: { todos: savedTodo._id } },
-      { new: true }
-    );
-
     return savedTodo;
   }
 
@@ -31,4 +25,8 @@ export class TodoRepository implements ITodoRepository {
   async getTodosByProjectId(projectId: string): Promise<ITodo[]> {
     return await TodoModel.find({ projectId });
   }
+  async deleteTodoById(todoId: string): Promise<ITodo | null> {
+    return await TodoModel.findByIdAndDelete(todoId);
+  }
+
 }

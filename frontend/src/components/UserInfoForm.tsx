@@ -7,7 +7,6 @@ interface UserInfoFormProps {
 
 const UserInfoForm: React.FC<UserInfoFormProps> = ({ userInfo, onSave }) => {
   const [formData, setFormData] = useState(userInfo);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,

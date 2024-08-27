@@ -5,9 +5,9 @@ import { verifyJWT } from '../middleware/AuthMiddleware';
 const router = Router();
 const projectController = new ProjectController();
 
-router.post('/create', verifyJWT, projectController.createProject.bind(projectController)); // Protect this route
-router.get('/', verifyJWT, projectController.getProjects.bind(projectController)); // Protect this route
-router.get('/:id', verifyJWT, projectController.getProjectById.bind(projectController)); // Protect this route
-router.post('/export-gist/:projectId', verifyJWT, projectController.exportProjectAsGist.bind(projectController)); // Protect this route
-
+router.post('/create', verifyJWT, projectController.createProject.bind(projectController)); 
+router.get('/', verifyJWT, projectController.getProjects.bind(projectController)); 
+router.get('/:id', verifyJWT, projectController.getProjectById.bind(projectController)); 
+router.post('/export-gist/:projectId', verifyJWT, projectController.exportProjectAsGist.bind(projectController)); 
+router.put('/:id', verifyJWT, projectController.updateProjectTitle.bind(projectController)); 
 export default router;

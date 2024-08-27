@@ -63,6 +63,19 @@ export const apiSlice = createApi({
         body: userData,
       }),
     }),
+    deleteTodo: builder.mutation({
+      query: (todoId) => ({
+        url: `/todos/${todoId}`,
+        method: 'DELETE',
+      }),
+    }),
+    updateProjectTitle: builder.mutation({
+      query: ({ projectId, title }) => ({
+        url: `/projects/${projectId}`,
+        method: 'PUT',
+        body: { title },
+      }),
+    }),
   }),
   
 });
@@ -77,5 +90,7 @@ export const {
   useGetTodosByProjectQuery,
   useExportProjectAsGistMutation,
   useGetProjectQuery,
-  useUpdateUserMutation
+  useUpdateUserMutation,
+  useUpdateProjectTitleMutation,
+  useDeleteTodoMutation
 } = apiSlice;

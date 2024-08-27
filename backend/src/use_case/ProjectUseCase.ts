@@ -25,6 +25,10 @@ export class ProjectUseCase implements IProjectUseCase {
   async addTodoToProject(projectId: string, todoId: string): Promise<void> {
     await this.projectRepository.addTodoToProject(projectId, todoId);
   }
+  async updateProjectTitle(id: string, title: string): Promise<IProject | null> {
+    return await this.projectRepository.updateProjectTitle(id, title);
+  }
+  
 
   async exportProjectAsGist(projectId: string, githubToken: string): Promise<string> {
     const project = await this.getProjectById(projectId);

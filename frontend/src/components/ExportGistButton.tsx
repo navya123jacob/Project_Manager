@@ -10,10 +10,8 @@ const ExportGistButton: React.FC<ExportGistButtonProps> = ({ projectId }) => {
 
   const handleExport = async () => {
     try {
-      // Assuming you have the GitHub token stored somewhere or retrieved dynamically
-      const githubToken = 'your-github-token-here';  // Replace this with actual token logic
-
-      // Pass the projectId and githubToken as an object
+      
+      const githubToken = 'mytoken';  
       await exportProjectAsGist({ projectId, githubToken }).unwrap();
     } catch (err) {
       console.error('Failed to export project as Gist:', err);

@@ -5,5 +5,6 @@ export interface IProjectRepository {
   getProjects(): Promise<IProject[]>;
   getProjectById(id: string): Promise<IProject | null>;
   updateProject(project: IProject): Promise<IProject |null>;
-  addTodoToProject(projectId: string, todoId: string): Promise<void>
+  addTodoToProject(projectId: string, todoId: string): Promise<void>;
+  updateProjectTitle(id: string, title: string): Promise<IProject | null>
 }

@@ -13,8 +13,9 @@ const todoController = new TodoController(todoUseCase);
 
 const router = Router();
 
-router.post('/create', verifyJWT, todoController.createTodo.bind(todoController)); // Protect this route
-router.patch('/update-status', verifyJWT, todoController.updateTodoStatus.bind(todoController)); // Protect this route
-router.get('/project/:projectId', verifyJWT, todoController.getTodosByProjectId.bind(todoController)); // Protect this route
+router.post('/create', verifyJWT, todoController.createTodo.bind(todoController));
+router.patch('/update-status', verifyJWT, todoController.updateTodoStatus.bind(todoController)); 
+router.get('/project/:projectId', verifyJWT, todoController.getTodosByProjectId.bind(todoController)); 
+router.delete('/:id', verifyJWT, todoController.deleteTodo.bind(todoController));
 
 export default router;
