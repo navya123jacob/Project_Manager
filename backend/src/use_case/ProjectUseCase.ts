@@ -29,7 +29,10 @@ export class ProjectUseCase implements IProjectUseCase {
     return await this.projectRepository.updateProjectTitle(id, title);
   }
   
-
+  async deleteProject(id: string): Promise<IProject | null> {
+    return await this.projectRepository.deleteProject(id);
+  }
+  
   async exportProjectAsGist(projectId: string, githubToken: string): Promise<string> {
     const project = await this.getProjectById(projectId);
     if (!project) {

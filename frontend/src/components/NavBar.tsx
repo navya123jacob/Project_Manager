@@ -34,8 +34,8 @@ const Header: React.FC = () => {
             <div className="ml-auto">
               <button
                 onClick={handleLogout}
-                className="btn btn-link text-black font-weight-bold"
-                style={{ color: 'black', fontWeight: 'bold', float: 'right' }}
+                className="btn  text-black font-weight-bold"
+                style={{ color: 'gray', fontWeight: 'bold', float: 'right' }}
               >
                 Logout
               </button>

@@ -31,4 +31,8 @@ export class ProjectRepository implements IProjectRepository {
       { new: true }
     );
   }
+  async deleteProject(id: string): Promise<IProject | null> {
+    return await ProjectModel.findByIdAndDelete(id);
+  }
+  
 }

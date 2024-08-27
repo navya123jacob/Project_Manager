@@ -9,7 +9,7 @@ AuthRoutes.post('/register', authController.register.bind(authController));
 
 AuthRoutes.post('/login', authController.login.bind(authController));
 
-AuthRoutes.put('/update-user', authController.updateUser.bind(authController));
+AuthRoutes.put('/update-user', verifyJWT, authController.updateUser.bind(authController));
 
 
 export default AuthRoutes;

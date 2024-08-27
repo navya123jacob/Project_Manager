@@ -14,7 +14,7 @@ const ProjectPage: React.FC = () => {
   };
 
   const handleGistExport = (url: string) => {
-    setGistUrl(url);  
+    setGistUrl(url); 
   };
 
   return (
